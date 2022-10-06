@@ -27,6 +27,7 @@
 #include <media/stagefright/omx/1.0/OmxStore.h>
 
 #include <dlfcn.h>
+#include <android/fdsan.h>
 
 using namespace android;
 
@@ -38,6 +39,7 @@ static const char kVendorSeccompPolicyPath[] =
 
 int main(int argc __unused, char** argv)
 {
+    android_fdsan_set_error_level(ANDROID_FDSAN_ERROR_LEVEL_DISABLED);
     strcpy(argv[0], "media.codec");
     LOG(INFO) << "mediacodecservice starting";
     signal(SIGPIPE, SIG_IGN);
